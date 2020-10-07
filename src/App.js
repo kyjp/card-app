@@ -124,8 +124,6 @@ const App = () => {
       let cardsItems = [...columns]
 
       if (!draggingCard || draggingCard === {}) return
-      console.log('a')
-      console.log(draggingCard)
       const dragCard = cardsItems.filter(cardsItem => {
         const flg = draggingCard.type === cardsItem.id ? true : false
         if (id === cardsItem.id && !flg) {
@@ -161,16 +159,15 @@ const App = () => {
   }
 
   const handleSubmit = () => {
-    console.log(columns[columns.length - 1].cards)
-    if (columns[columns.length - 1].cards === []) {
+    if (columns[columns.length - 1].cards.length !== 0) {
       setError(true)
       return
     }
     let answerFlg = true
     for (let i = 0; i < columns.length - 1; i++) {
-      const flg = columns[i].cards.every((v) => columns[i].id === v.id)
-      console.log(false)
+      const flg = columns[i].cards.every((v) => v.answer === v.type)
       if (!flg) {
+        setError(false)
         answerFlg = false
         break;
       }
